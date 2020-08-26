@@ -1,47 +1,52 @@
 <template>
-  <div id="app">
-    <Todos 
-    v-bind:myPropsForBinding="todos"
-    v-on:del-todo="deleteTodo"
-    />
-  </div>
+<div>
+  <Header />
+  <AddTodo @add-todo="addTodo"/>
+  <Todos v-bind:propsFromApp="todos" @del-todo="delTodo"/>
+</div>
 </template>
 
 <script>
-import Todos from "./components/Todos"
-
+import Todos from "./components/Todos";
+import Header from "./components/Layout/Header";
+import AddTodo from "./components/AddTodo";
+import axios from "axios";
 
 export default {
   name: 'App',
   components: {
-    Todos
-  },
-  methods: {
-    deleteTodo(id){
-      this.todos = this.todos.filter(el => el.id !== id);
-    }  
+    Todos,
+    Header,
+    AddTodo
   },
   data(){
-    return{
-      todos: [
-        {
-          id: 1,
-          title: "Todo 1",
-          completed: false
-        },
-        {
-          id: 2,
-          title: "Todo 2",
-          completed: true
-        },
-
-        {
-          id: 3,
-          title: "Todo 3",
-          completed: false
-        }
-      ]
+    return {
+      todos: []
     }
+  },
+  methods: {
+    delTodo(id){
+      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .then(res => {
+          this.todos = this.todos.filter(el => el.id !== id)
+          console.log(res);
+        })
+        .catch(err => console.log(err));
+    },
+    addTodo(newTodo){
+      const {title, completed} = newTodo;
+
+      axios.post('https://jsonplaceholder.typicode.com/todos', {
+        title, completed
+      })
+        .then(res => this.todos = [...this.todos, res.data])
+        .catch(err => console.log(err));
+    }
+  },
+  created(){
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=52')
+      .then(res => this.todos = res.data)
+      .catch(err => console.log(err))
   }
 }
 </script>
@@ -56,4 +61,16 @@ export default {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.4;
   }
+  .btn {
+    display: inline-block;
+    border: none;
+    background: #555;
+    color: #fff;
+    padding: 7px 20px;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: #666;
+  }
+
 </style>

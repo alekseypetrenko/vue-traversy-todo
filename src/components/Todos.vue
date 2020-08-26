@@ -1,23 +1,21 @@
 <template>
-    <div>
-        <div v-for="todo in myPropsForBinding" v-bind:key="todo.id">
-            <TodoItem 
-            v-bind:todoItem="todo"
-            v-on:del-todo="$emit('del-todo', todo.id)"
-            />
-        </div>
-    </div>
+<div>
+    <p v-for="todo in propsFromApp" v-bind:key="todo.id">
+    <TodoItem v-bind:oneTodo="todo" @del-todo="$emit('del-todo', todo.id)"/>
+    </p>
+</div>
 </template>
 
 <script>
-import TodoItem from "./TodoItem";
+import TodoItem from "./TodoItem"
 
 export default {
     name: "Todos",
-    props: ["myPropsForBinding"],
+    props: ["propsFromApp"],
     components: {
         TodoItem
-    },
+    }
+
 }
 </script>
 
