@@ -1,13 +1,14 @@
 <template>
-<div>
-    <p v-for="todo in propsFromApp" v-bind:key="todo.id">
-    <TodoItem v-bind:oneTodo="todo" @del-todo="$emit('del-todo', todo.id)"/>
+<div >
+    <p v-for="todo in propsFromApp" :key="todo.id">
+        <TodoItem :todo="todo" @del-todo="$emit('del-todo', todo.id)"/>
     </p>
+
 </div>
 </template>
 
 <script>
-import TodoItem from "./TodoItem"
+import TodoItem from "./TodoItem";
 
 export default {
     name: "Todos",
@@ -15,8 +16,8 @@ export default {
     components: {
         TodoItem
     }
-
 }
+
 </script>
 
 <style scoped>

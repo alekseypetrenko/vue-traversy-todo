@@ -1,24 +1,23 @@
 <template>
-    <div :class="{'is-complete':oneTodo.completed}" class="some">
-        <p class="todo-item"> 
-            <input type="checkbox" @change="markDone">
-            {{oneTodo.title}}
-            <button class="del" @click="$emit('del-todo', oneTodo.id)">x</button>
+    <div :class="{'is-complete':todo.completed}">
+        <p class="todo-item">
+            <input type="checkbox" @change="markComplete">
+            {{todo.title}}
+            <button class="del" @click="$emit('del-todo', todo.id)">x</button>
         </p>
     </div>
 </template>
 
 <script>
-export default {
-    name: "TodoItem",
-    props: ["oneTodo"],
-    methods: {
-        markDone(){
-            this.oneTodo.completed = !this.oneTodo.completed;
+    export default {
+        name: "TodoItem",
+        props: ["todo"],
+        methods: {
+            markComplete(){
+                this.todo.completed = !this.todo.completed;
+            }
         }
     }
-
-}
 </script>
 
 <style scoped>
@@ -27,20 +26,20 @@ export default {
         margin: 10px auto;
     }
     .todo-item {
-    background: #f4f4f4;
-    padding: 10px;
-    border-bottom: 1px #ccc dotted;
-  }
-  .is-complete {
-    text-decoration: line-through;
-  }
-  .del {
-    background: #ff0000;
-    color: #fff;
-    border: none;
-    padding: 5px 9px;
-    border-radius: 50%;
-    cursor: pointer;
-    float: right;
-  }
+        background: #f4f4f4;
+        padding: 10px;
+        border-bottom: 1px #ccc dotted;
+    }
+    .is-complete {
+        text-decoration: line-through;
+    }
+    .del {
+        background: #ff0000;
+        color: #fff;
+        border: none;
+        padding: 5px 9px;
+        border-radius: 50%;
+        cursor: pointer;
+        float: right;
+    }
 </style>
