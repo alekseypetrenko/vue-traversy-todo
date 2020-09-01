@@ -22,10 +22,6 @@ export default {
 </script>
 
 <style scoped>
-    .some{
-        width: 70%;
-        margin: 10px auto;
-    }
     .todo-item {
     background: #f4f4f4;
     padding: 10px;
