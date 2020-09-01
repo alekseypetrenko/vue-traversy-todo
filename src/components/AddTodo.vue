@@ -1,8 +1,8 @@
 <template>
     <div>
         <form @submit="addTodo">
-            <input type="text" v-model="title" name="title" placeholder="Add todo">
-            <input type="submit" value="Submit" class="btn">
+            <input type="text" v-model="title" placeholder="Enter title">
+            <input type="submit" value="Submit">
         </form>
     </div>
 </template>
@@ -11,7 +11,7 @@
 // import { v4 as uuidv4 } from 'uuid'
 export default {
     name: "AddTodo",
-    data(){
+    data() {
         return {
             title: ""
         }
@@ -23,11 +23,12 @@ export default {
                 title: this.title,
                 completed: false
             }
-            this.$emit('add-todo', newTodo);
+            this.$emit("add-todo", newTodo)
             this.title = "";
         }
     }
 }
+
 </script>
 
 <style scoped>
